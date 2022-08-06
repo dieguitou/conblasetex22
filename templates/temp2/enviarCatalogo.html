@@ -1,0 +1,58 @@
+{% extends 'temp2/indexadmin.html' %}
+{% block enviarcata %}
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Lista de autores</h1>
+
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Autores</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Correo eletronico</th>
+                        <th>Opciones</th>
+                    </tr>
+
+                    </thead>
+                    <tbody>
+                    {% for usu in usuarios3 %}
+                        <tr>
+                            <td>{{ usu.nombreUsu }}</td>
+                            <td>{{ usu.correousu }}</td>
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>Correo eletronico</th>
+                    </tr>
+
+                    </thead>
+                    <tbody>
+                    {% for c in correos %}
+                        <tr>
+                            <td>{{ c.correousu }}</td>
+
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+                <form action="{% url 'mandarcorreo' %}" method="post" class="form-control">
+                    {% csrf_token %}
+                    <button type="submit">Enviar Catalgo</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
