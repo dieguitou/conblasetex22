@@ -13,13 +13,13 @@
     <title>administrador CONBLASETEX</title>
 
     <!-- Custom fonts for this template-->
-    <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'static-3/vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
     <link
             href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
             rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+    <link href="{% static 'static-3/css/sb-admin-2.min.css' %}" rel="stylesheet">
 
 </head>
 
@@ -36,18 +36,18 @@
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-laugh-wink"></i>
             </div>
-            <div class="sidebar-brand-text mx-3">Admintrador <sup>1</sup></div>
+            <div class="sidebar-brand-text mx-3">Admintrador<sup></sup></div>
         </a>
 
         <!-- Divider -->
         <hr class="sidebar-divider my-0">
 
         <!-- Nav Item - Dashboard -->
-        <li class="nav-item active">
+        {% comment %}<li class="nav-item active">
             <a class="nav-link" href="index.html">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Dashboard</span></a>
-        </li>
+        </li>{% endcomment %}
 
         <!-- Divider -->
         <hr class="sidebar-divider">
@@ -58,7 +58,7 @@
         </div>
 
         <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
+        {% comment %} <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                aria-expanded="true" aria-controls="collapseTwo">
                 <i class="fas fa-fw fa-cog"></i>
@@ -71,6 +71,12 @@
                     <a class="collapse-item" href="cards.html">Super Administrador</a>
                 </div>
             </div>
+        </li>{% endcomment %}
+        <!-- agregar producto -->
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'Agragar_prod' %}">
+                <i class="fas fa-fw fa-table"></i>
+                <span>Agregar producto</span></a>
         </li>
 
         <!-- Nav Item - Utilities Collapse Menu -->
@@ -83,27 +89,29 @@
             <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                  data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Custom Utilities:</h6>
-                    <a class="collapse-item" href="utilities-color.html">Chalecos</a>
-                    <a class="collapse-item" href="utilities-border.html">Chamarras</a>
-                    <a class="collapse-item" href="utilities-animation.html">Overoles</a>
+                    <h6 class="collapse-header">Seleccione una opcion:</h6>
+                    {% for prenda in producto_prenda %}
+                        <a class="collapse-item"
+                           href="{% url 'vista_producto_prenda' prenda.id %}">{{ prenda.nombre }}</a>
+                    {% endfor %}
                 </div>
             </div>
         </li>
         <!-- EPP productos  -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse3"
                aria-expanded="true" aria-controls="collapseUtilities">
                 <i class="fas fa-fw fa-wrench"></i>
                 <span>Productos Epp</span>
             </a>
-            <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+            <div id="collapse3" class="collapse" aria-labelledby="headingUtilities"
                  data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Custom Utilities:</h6>
-                    <a class="collapse-item" href="utilities-color.html">Botas</a>
-                    <a class="collapse-item" href="utilities-border.html">cascos</a>
-                    <a class="collapse-item" href="utilities-animation.html">Guantes</a>
+                    <h6 class="collapse-header">Seleccione una opcion:</h6>
+                    {% for epp in producto_epp %}
+                        <a class="collapse-item"
+                           href="{% url 'vista_producto_prenda' epp.id %}">{{ epp.nombre }}</a>
+                    {% endfor %}
                 </div>
             </div>
         </li>
@@ -113,7 +121,7 @@
 
         <!-- Heading -->
         <div class="sidebar-heading">
-            Addons
+            Correo masivo
         </div>
 
 
@@ -123,12 +131,9 @@
                 <span>Enviar Catalogos</span></a>
         </li>
 
+
         <!-- Nav Item - Tables -->
-        <li class="nav-item">
-            <a class="nav-link" href="tables.html">
-                <i class="fas fa-fw fa-table"></i>
-                <span>Ver reportes</span></a>
-        </li>
+
 
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
@@ -138,13 +143,15 @@
             <button class="rounded-circle border-0" id="sidebarToggle"></button>
         </div>
 
+
         <!-- Sidebar Message -->
-        <div class="sidebar-card d-none d-lg-flex">
+        {% comment %}<div class="sidebar-card d-none d-lg-flex">
             <img class="sidebar-card-illustration mb-2" src="img/undraw_rocket.svg" alt="...">
             <p class="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components, and
                 more!</p>
             <a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to Pro!</a>
-        </div>
+        </div>{% endcomment %}
+
 
     </ul>
     <!-- End of Sidebar -->
@@ -162,8 +169,10 @@
                 <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                     <i class="fa fa-bars"></i>
                 </button>
-
-                <!-- Topbar Search -->
+                <a href="{% url 'index2' %}" class="navbar-brand ms-4 ms-lg-0 rounded-3">
+                    <img src="{% static 'static-2/imgconbla/logo2.png' %}" width="70px" height="70px">
+                </a>
+                {% comment %}<!-- Topbar Search -->
                 <form
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                     <div class="input-group">
@@ -175,7 +184,7 @@
                             </button>
                         </div>
                     </div>
-                </form>
+                </form>{% endcomment %}
 
                 <!-- Topbar Navbar -->
                 <ul class="navbar-nav ml-auto">
@@ -205,7 +214,7 @@
                     </li>
 
                     <!-- Nav Item - Alerts -->
-                    <li class="nav-item dropdown no-arrow mx-1">
+                    {% comment %}<li class="nav-item dropdown no-arrow mx-1">
                         <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-bell fa-fw"></i>
@@ -253,10 +262,10 @@
                             </a>
                             <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
                         </div>
-                    </li>
+                    </li>{% endcomment %}
 
                     <!-- Nav Item - Messages -->
-                    <li class="nav-item dropdown no-arrow mx-1">
+                    {% comment %}<li class="nav-item dropdown no-arrow mx-1">
                         <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-envelope fa-fw"></i>
@@ -323,7 +332,7 @@
                             </a>
                             <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
                         </div>
-                    </li>
+                    </li>{% endcomment %}
 
                     <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -331,14 +340,14 @@
                     <li class="nav-item dropdown no-arrow">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ user }}</span>
                             <img class="img-profile rounded-circle"
                                  src="img/undraw_profile.svg">
                         </a>
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                              aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="#">
+                            {% comment %}<a class="dropdown-item" href="#">
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Profile
                             </a>
@@ -350,10 +359,10 @@
                                 <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Activity Log
                             </a>
-                            <div class="dropdown-divider"></div>
+                            <div class="dropdown-divider"></div>{% endcomment %}
                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                 <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Logout
+                                Salir
                             </a>
                         </div>
                     </li>
@@ -365,16 +374,18 @@
 
             <!-- Begin Page Content -->
             <div class="container-fluid">
+
                 {% block enviarcata %}
+
                     <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4 ">
+                        <h1 class="h3 mb-0 text-gray-800">Bienvenido</h1>
+                        {% comment %}<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                                class="fas fa-download fa-sm text-white-50"></i> Generar Reporte</a>{% endcomment %}
                     </div>
 
                     <!-- Content Row -->
-                    <div class="row">
+                    {% comment %}<div class="row">
 
                         <!-- Earnings (Monthly) Card Example -->
                         <div class="col-xl-3 col-md-6 mb-4">
@@ -692,8 +703,10 @@
                             </div>
 
                         </div>
-                    </div>
+                    </div>{% endcomment %}
+
                 {% endblock %}
+
             </div>
             <!-- /.container-fluid -->
 
@@ -704,7 +717,7 @@
         <footer class="sticky-footer bg-white">
             <div class="container my-auto">
                 <div class="copyright text-center my-auto">
-                    <span>Copyright &copy; Your Website 2021</span>
+                    <span>Sistema Confecciones Blanco seguridad Textil</span>
                 </div>
             </div>
         </footer>
@@ -727,36 +740,67 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <h5 class="modal-title" id="exampleModalLabel">¿List@ para salir?</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
-            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-body">Seleccione "Cerrar sesión" a continuación si está listo para finalizar su sesión
+                actual.
+            </div>
             <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="login.html">Logout</a>
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                <a class="btn btn-danger" href="{% url 'vista_logout' %}">Salir</a>
             </div>
         </div>
     </div>
 </div>
 
 <!-- Bootstrap core JavaScript-->
-<script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
-<script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'static-3/vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'static-3/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 
 <!-- Core plugin JavaScript-->
-<script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+<script src="{% static 'static-3/vendor/jquery-easing/jquery.easing.min.js' %}"></script>
 
 <!-- Custom scripts for all pages-->
-<script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+<script src="{% static 'static-3/js/sb-admin-2.min.js' %}"></script>
 
 <!-- Page level plugins -->
-<script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script>
+<script src="{% static 'static-3//vendor/chart.js/Chart.min.js' %}"></script>
 
 <!-- Page level custom scripts -->
-<script src="{% static 'js/demo/chart-area-demo.js' %}"></script>
-<script src="{% static 'js/demo/chart-pie-demo.js' %}"></script>
+<script src="{% static 'static-3/js/demo/chart-area-demo.js' %}"></script>
+<script src="{% static 'static-3/js/demo/chart-pie-demo.js' %}"></script>
+
+<!-- para el sweetalert2-->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+{% if messages %}
+    {% for m in messages %}
+        {% if m.level == DEFAULT_MESSAGE_LEVELS.INFO %}
+            <script>
+
+                swal.fire({
+                    "title": "Eliminado",
+                    "text": "{{ m }}",
+                    "icon": "succes",
+                    "icon": "cancel",
+
+
+                })
+            </script>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+{% block extrajs %}
+
+{% endblock %}
+
+{% block js2 %}
+{% endblock %}
+
 
 </body>
 

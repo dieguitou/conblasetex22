@@ -1,5 +1,6 @@
 from django.db import models
-from appConblasetex.prenda.models import Stock
+
+from appConblasetex.prenda.models import Producto
 
 
 # Create your models here.
@@ -10,4 +11,4 @@ class Epp(models.Model):
     precioEpp = models.DecimalField('precio del epp', max_digits=10, decimal_places=2)
     fotoEpp = models.ImageField('imagen de epp', upload_to='fotosEpp/')
     fechaEpp = models.DateTimeField('fecha de creacion Epp')
-    idStock = models.ForeignKey(Stock, on_delete=models.CASCADE)
+    cantidad = models.PositiveIntegerField()

@@ -2,6 +2,41 @@
 <!DOCTYPE html>
 <html lang="en">
 
+{#SEO#}
+{#descripcion de la pagina#}
+<meta
+        name="descripcion"
+        content="CONBLASETEX es una empresa que confeciona ropa de trabajos y vende EPP equipos de proteccion personal"
+/>
+{#busquedas que ara el posible usuario#}
+<meta
+        name="keywords"
+        content="Ropa de trabajo, confeccion textil, chalecos, overoles, Chamarras, CONBLASETEX, conblasetex, calidad, calidad de ropa, ropa,"
+/>
+{# favicon celular pagina#}
+{#aparece encima de la buqueda#}
+<link rel="canonical"
+      href="http://Conblasetex.com"/>
+
+{#$$$$$$$$$$$$$$$$$$$$$$$$$$$#}
+<meta property="og:type" content="website"/>
+
+<meta property="og:url" content="http://Conblasetex.com"/>
+
+<meta property="og:title"
+      content="Conblasetex empresa de confeccion textil"
+/>
+{#descripcion#}
+<meta
+        property="og: descripcion"
+        content="Conblasetex es un empresa que confecciona ropa de trabajo"
+/>
+{#para la imagen#}
+<meta
+        property="og:image"
+        content="http://Conblasetex.com/static-2/imgconbla/foto2.jpg"
+/>
+
 <head>
     <meta charset="utf-8">
     <title>Conblasetex</title>
@@ -10,8 +45,8 @@
     <meta content="" name="description">
 
     <!-- Favicon -->
-    <link href="{% static 'static-2/img/favicon.ico' %}" rel="icon">
-
+    <link href="{% static 'static-2/imgconbla/logo2.png' %}" rel="icon" sizes="32x32" type="image/png">
+    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'static-2/imgconbla/logo2.png' %}">
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -38,7 +73,6 @@
 <div id="spinner"
      class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
     <div class="spinner-border text-primary" role="status"></div>
-
 </div>
 
 <!-- Spinner End -->
@@ -46,7 +80,7 @@
 
 <!-- Navbar Start -->
 <div class="container-fluid fixed-top px-0 wow fadeIn" data-wow-delay="0.1s">
-    <div class="top-bar row gx-0 align-items-center d-none d-lg-flex">
+    <div class="top-bar row gx-0 align-items-center d-none d-lg-flex" style="color: #0dcaf0">
         <div class="col-lg-6 px-5 text-start">
             <small><i class="fa fa-map-marker-alt me-2"></i>CALLE 2 No 11-B Zona VILLA BOLIVAR EL ALTO BOLIVIA</small>
             <small class="ms-4"><i class="fa fa-envelope me-2"></i>Conblasetex@gmail.com</small>
@@ -54,15 +88,12 @@
         <div class="col-lg-6 px-5 text-end">
             <small>Siguenos en:</small>
             <a class="text-body ms-3" href="https://www.facebook.com/conblasetex.textil"><i
-                    class="fab fa-facebook-f"></i></a>
-            <a class="text-body ms-3" href=""><i class="fab fa-twitter"></i></a>
-            <a class="text-body ms-3" href=""><i class="fab fa-linkedin-in"></i></a>
-            <a class="text-body ms-3" href=""><i class="fab fa-instagram"></i></a>
+                    class="fab fa-facebook-f" style="color: #0dcaf0"></i></a>
         </div>
     </div>
 
     <nav class="navbar navbar-expand-lg navbar-light py-lg-0 px-lg-5 wow fadeIn" data-wow-delay="0.1s">
-        <a href="index.html" class="navbar-brand ms-4 ms-lg-0 rounded-3">
+        <a href="{% url 'index2' %}" class="navbar-brand ms-4 ms-lg-0 rounded-3">
             <img src="{% static 'static-2/imgconbla/logo2.png' %}" width="100px" height="100px">
         </a>
         <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -70,9 +101,9 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto p-4 p-lg-0">
-                <a href="index.html" class="nav-item nav-link active">Inicio</a>
+                <a href="{% url 'index2' %}" class="nav-item nav-link">Inicio</a>
                 {#                <a href="about.html" class="nav-item nav-link">About Us</a>#}
-                <a href="{% url 'prducto' %}" class="nav-item nav-link">Productos</a>
+                <a href="{% url 'prducto' 2 %}" class="nav-item nav-link">Productos</a>
                 <div class="nav-item dropdown">
                     {#                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>#}
                     <div class="dropdown-menu m-0">
@@ -83,8 +114,9 @@
                     </div>
                 </div>
                 <a href="{% url 'cont' %}" class="nav-item nav-link">Contactanos</a>
+                {% comment %}<a href="{% url 'vista_login' %}" class="nav-item nav-link">Iniciar seción</a>{% endcomment %}
             </div>
-            <div class="d-none d-lg-flex ms-2">
+            {% comment %}<div class="d-none d-lg-flex ms-2">
                 <a class="btn-sm-square bg-white rounded-circle ms-3" href="">
                     <small class="fa fa-search text-body"></small>
                 </a>
@@ -94,7 +126,7 @@
                 <a class="btn-sm-square bg-white rounded-circle ms-3" href="">
                     <small class="fa fa-shopping-bag text-body"></small>
                 </a>
-            </div>
+            </div>{% endcomment %}
         </div>
     </nav>
 </div>
@@ -114,15 +146,15 @@
                                 <h1 class="display-2 mb-5 animated slideInDown" style="color:#FFF8DC">CONFECCIONES
                                     BLANCO Y SEGURIDAD
                                     TEXTIL</h1>
-                                <a href="" class="btn btn-primary rounded-pill py-sm-3 px-sm-5">Productos</a>
-                                <a href="" class="btn btn-secondary rounded-pill py-sm-3 px-sm-5 ms-3">Servicios</a>
+                                <a href="{% url 'prducto' 2 %}" class="btn btn-primary rounded-pill py-sm-3 px-sm-5">Productos</a>
+                                {% comment %}<a href="" class="btn btn-secondary rounded-pill py-sm-3 px-sm-5 ms-3">Servicios</a>{% endcomment %}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="carousel-item">
-                <img class="w-100" src="{% static 'static-2/imgconbla/foto2.jpg' %}" alt="Image">
+                <img class="w-100" src="{% static 'static-2/imgconbla/foto05.jfif' %}" alt="Image">
                 <div class="carousel-caption">
                     <div class="container">
                         <div class="row justify-content-start">
@@ -130,8 +162,8 @@
                                 <h1 class="display-2 mb-5 animated slideInDown" style="color:#FFF8DC">Confeciones Blanco
                                     Seguridad Textil te
                                     ofrece Equipos de proteccion personal</h1>
-                                <a href="" class="btn btn-primary rounded-pill py-sm-3 px-sm-5">Products</a>
-                                <a href="" class="btn btn-secondary rounded-pill py-sm-3 px-sm-5 ms-3">Services</a>
+                                <a href="{% url 'prducto' 2 %}" class="btn btn-primary rounded-pill py-sm-3 px-sm-5">Productos</a>
+                                {% comment %}<a href="" class="btn btn-secondary rounded-pill py-sm-3 px-sm-5 ms-3">Services</a>{% endcomment %}
                             </div>
                         </div>
                     </div>
@@ -166,13 +198,14 @@
                 <h1 class="display-5 mb-4">Acerca de la empresa</h1>
                 <p class="mb-4">CONBLASETEX es una empresa de confeccion textil con una amplia experiencia.
                     La calidad, dedicacion y empeño que pone en la realizacion de cada prenda
-                    hace de CONBLASETEX una empresa de confeccion textil seria y confiable.
+                    hace de CONBLASETEX una empresa de confeccion textil seria y confiable a la hora de realizar su
+                    trabajo.
                     CONBLASETEX realizo trabajo para las siguientes empresas.</p>
                 <p><i class="fa fa-check text-primary me-3"></i>Impuestos Nacionales</p>
                 <p><i class="fa fa-check text-primary me-3"></i>Aduana nacional</p>
                 <p><i class="fa fa-check text-primary me-3"></i>Alcaldia De La Paz</p>
                 <p><i class="fa fa-check text-primary me-3"></i>Yacimientos de Litio Bolivianos</p>
-                <a class="btn btn-primary rounded-pill py-3 px-5 mt-3" href="">Read More</a>
+                {#                <a class="btn btn-primary rounded-pill py-3 px-5 mt-3" href="">Read More</a>#}
             </div>
         </div>
     </div>
@@ -182,7 +215,7 @@
 
 <!-- Feature Start -->
 <div class="container-fluid bg-light my-5 py-6"
-     style="background-image: url({% static 'static-2/imgconbla/fondo.png' %})">
+     style="background-image: url({% static 'static-2/imgconbla/fondo3.jpg' %})">
     <div class="container">
         <div class="section-header text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s"
              style="max-width: 500px;">
@@ -198,7 +231,7 @@
                     <p class="mb-4">El detalle en la elaboracion de cada costura garantiza la una prenda comoda y
                         duradera hecha a
                         la medida de cada cliente. </p>
-                    <a class="btn btn-outline-primary border-2 py-2 px-4 rounded-pill" href="">Leer mas</a>
+                    {#                    <a class="btn btn-outline-primary border-2 py-2 px-4 rounded-pill" href="">Leer mas</a>#}
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
@@ -207,7 +240,7 @@
                     <h4 class="mb-3">Compromiso</h4>
                     <p class="mb-4">La seriedad, empeño y dedicacion hace de conblasetex una empresa comprometida con el
                         trabajor encomendado de sus cliente.</p>
-                    <a class="btn btn-outline-primary border-2 py-2 px-4 rounded-pill" href="">Leer mas</a>
+                    {#                    <a class="btn btn-outline-primary border-2 py-2 px-4 rounded-pill" href="">Leer mas</a>#}
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
@@ -217,7 +250,7 @@
                     <p class="mb-4">Conblasetex tiene una amplia experiencia de mas de 10
                         años en la creación y confeccion productos esta experiencia se traduce en clientes
                         satisfechos</p>
-                    <a class="btn btn-outline-primary border-2 py-2 px-4 rounded-pill" href="">Leer mas</a>
+                    {#                    <a class="btn btn-outline-primary border-2 py-2 px-4 rounded-pill" href="">Leer mas</a>#}
                 </div>
             </div>
         </div>
@@ -227,7 +260,7 @@
 
 
 <!-- Product Start -->
-<div class="container-xxl py-5">
+{% comment %}<div class="container-xxl py-5">
     <div class="container">
         <div class="row g-0 gx-5 align-items-end">
             <div class="col-lg-6">
@@ -853,7 +886,7 @@
             </div>
         </div>
     </div>
-</div>
+</div>{% endcomment %}
 <!-- Product End -->
 
 {% comment %}
@@ -998,14 +1031,11 @@
                 {#                <h1 class="fw-bold text-primary mb-4">F<span class="text-secondary">oo</span>dy</h1>#}
                 <p>Comunicate puedes seguirnos en nuestras redes sociales</p>
                 <div class="d-flex pt-2">
-                    <a class="btn btn-square btn-outline-light rounded-circle me-1" href=""><i
-                            class="fab fa-twitter"></i></a>
-                    <a class="btn btn-square btn-outline-light rounded-circle me-1" href=""><i
+
+                    <a class="btn btn-square btn-outline-light rounded-circle me-1"
+                       href="https://www.facebook.com/conblasetex.textil"><i
                             class="fab fa-facebook-f"></i></a>
-                    <a class="btn btn-square btn-outline-light rounded-circle me-1" href=""><i
-                            class="fab fa-youtube"></i></a>
-                    <a class="btn btn-square btn-outline-light rounded-circle me-0" href=""><i
-                            class="fab fa-linkedin-in"></i></a>
+
                 </div>
             </div>
             <div class="col-lg-3 col-md-6">
@@ -1016,11 +1046,12 @@
             </div>
             <div class="col-lg-3 col-md-6">
                 <h4 class="text-light mb-4">Enlaces rapidos</h4>
-                <a class="btn btn-link" href="">Productos</a>
-                <a class="btn btn-link" href="">Contactos</a>
-                <a class="btn btn-link" href="">Soporte</a>
+                <a class="btn btn-link" href="{% url 'index2' %}">Inicio</a>
+                <a class="btn btn-link" href="{% url 'prducto' 2 %}">Productos</a>
+                <a class="btn btn-link" href="{% url 'cont' %}">Contactos</a>
+                <a class="btn btn-link" href="{% url 'vista_login' %}">Iniciar seción</a>
             </div>
-            <div class="col-lg-3 col-md-6">
+            {% comment %}<div class="col-lg-3 col-md-6">
                 <h4 class="text-light mb-4">Informate</h4>
                 <p>Bridanos tu correo.</p>
                 <div class="position-relative mx-auto" style="max-width: 400px;">
@@ -1029,7 +1060,7 @@
                     <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp
                     </button>
                 </div>
-            </div>
+            </div>{% endcomment %}
         </div>
     </div>
     <div class="container-fluid copyright">

@@ -1,0 +1,80 @@
+{% load crispy_forms_tags %}
+<div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title"><strong>Editar</strong></h2>
+            <button class="close" type="button" aria-label="Close" data-dismiss="modal"></button>
+            <span aria-hidden="true">
+                &times;
+            </span>
+        </div>
+        <div class="container">
+            <form action="{% url 'editar-prendas2' object.id %}" enctype="multipart/form-data" method="post">
+                {% csrf_token %}
+
+                <br>
+                <div class="row">
+                    <div class="col-2 text-center">
+                        <label id="id_nombre" class="col-12">
+                            Nombre
+                        </label>
+                    </div>
+                    <div class="col-10">{{ form.nombre }}</div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-2 text-center">
+                        <label id="id_tipoTela" class="col-12">
+                            Tipo de tela
+                        </label>
+                    </div>
+                    <div class="col-10">{{ form.tipoTela }}</div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-2 text-center">
+                        <label id="id_color" class="col-12">
+                            color
+                        </label>
+                    </div>
+                    <div class="col-10">{{ form.color }}</div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-2 text-center">
+                        <label id="id_nombre" class="col-12">
+                            Precio
+                        </label>
+                    </div>
+                    <div class="col-10">{{ form.precio }}</div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-2 text-center">
+                        <label id="id_imagen" class="col-12">
+                            Imagen
+                        </label>
+                    </div>
+                    <div class="col-10">{{ form.imagen }}</div>
+                </div>
+
+                <br>
+                <div class="row">
+                    <div class="col-2 text-center">
+                        <label id="id_nombre" class="col-12">
+                            Fecha
+                        </label>
+                    </div>
+                    <div class="col-10">{{ form.fecha }}</div>
+                </div>
+                <br>
+
+
+                <div class="modal-footer">
+                    <button class="btn btn-danger btn-sm" type="button" data-dismiss="modal">Cancelar</button>
+                    <button class="btn btn-warning btn-sm" type="submit">Editar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

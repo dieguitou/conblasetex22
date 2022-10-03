@@ -1,0 +1,34 @@
+{% load crispy_forms_tags %}
+<div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title"><strong>Adicionar cantidad</strong></h2>
+            <button class="close" type="button" aria-label="Close" data-dismiss="modal"></button>
+            <span aria-hidden="true">
+                &times;
+            </span>
+        </div>
+        <div class="container">
+            <form action="{% url 'editar-cantidad' objeto.id %}" enctype="multipart/form-data" method="post">
+                {% csrf_token %}
+                <br>
+                <div class="row">
+                    <div class="col-2 text-center">
+                        <label id="id_cantidad" class="col-12">
+                            Cantidad
+                        </label>
+                    </div>
+                    <div class="col-10">
+                        <input type="number" name="cantidad" id="id_cantidad">
+                    </div>
+                </div>
+
+
+                <div class="modal-footer">
+                    <button class="btn btn-danger btn-sm" type="button" data-dismiss="modal">Cancelar</button>
+                    <button class="btn btn-warning btn-sm" type="submit">Editar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

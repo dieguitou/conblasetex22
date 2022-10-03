@@ -1,0 +1,224 @@
+{% extends 'temp2/indexadmin.html' %}
+
+{% block extrajs %}
+
+    <script>
+        function eliminarProducto(id) {
+            Swal.fire({
+                "title": "Deseas Eliminar este producto",
+                "text": "esta accion no se puede desaser",
+                "icon": "question",
+                "showCancelButton": true,
+                "cancelButtonText": "No, Cancelar",
+                "confirmButtonText": "Si, Eliminar",
+                "reverseButtons": true,
+                "confirmButtonColor": "darkred"
+            })
+                .then(function (result) {
+                    if (result.isConfirmed) {
+                        window.location.href = "/admin1/vista/eliminar/new/" + id + "/"
+                    }
+                })
+        }
+
+        function abrir_modal_editar(url) {
+            $('#editar').load(url, function () {
+                $(this).modal('show')
+            });
+        }
+
+        function abrir_modal_registrar(url) {
+            $('#registrar').load(url, function () {
+                $(this).modal('show')
+            });
+        }
+
+        $(document).ready(function () {
+            // messages timeout for 10 sec
+            setTimeout(function () {
+                $('.messages').fadeOut('slow');
+            }, 3000); // <-- time in milliseconds, 1000 =  1 sec
+        });
+    </script>
+{% endblock %}
+
+
+{% block enviarcata %}
+    <div class="container">
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+
+                    {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Error:
+                        <div class="alert alert-danger" role="alert">
+                            {{ message }}
+                        </div>
+                    {% elif message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                        <div class="alert alert-success" role="alert">
+                            {{ message }}
+                        </div>
+                    {% elif message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}Advertencia:
+                        <div class="alert alert-warning" role="alert">
+                            {{ message }}
+                        </div>
+                    {% elif message.level == DEFAULT_MESSAGE_LEVELS.INFO %}Aviso:
+                        <div class="alert alert-info" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endif %}
+
+
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+    <h1 class="h3 mb-2 text-gray-800">{{ producto.nombre }}</h1>
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            {#            <h6 class="m-0 font-weight-bold text-primary">Lista de chamarra</h6>#}
+            {# barra debusqueda#}
+            <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
+                  method="get" action="{% url 'vista_producto_prenda' producto.id %}">
+                {% csrf_token %}
+                <div class="input-group">
+                    <input type="text" class="form-control bg-light border-0 small" placeholder="Buscar..."
+                           name="search" value="{{ request.GET.search }}">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="submit">
+                            <i class="fas fa-search fa-sm"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+            {% if producto.tipo == 'Prenda' %}
+                <button formmethod="get" onclick="abrir_modal_registrar('{% url 'regitrar-prenda' producto.id %}')"
+                        class="btn btn-success float-right">Agregar {{ producto.nombre }}
+                </button>
+            {% else %}
+                <button formmethod="get" onclick="abrir_modal_registrar('{% url 'regitrar-prenda-v1' producto.id %}')"
+                        class="btn btn-primary float-right">Agregar {{ producto.nombre }}
+                </button>
+            {% endif %}
+
+        </div>
+        {% if producto.tipo == "Prenda" %}
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                        <tr class="text-center">
+                            <th>Nombre</th>
+                            <th>Tipo del producto</th>
+                            <th>Tipo de tela</th>
+                            <th>Color</th>
+                            <th>Descripcion</th>
+                            <th>Precio</th>
+                            <th>Talla</th>
+                            <th>Cantidad</th>
+                            <th>Imagen</th>
+                            <th>Opciones</th>
+                        </tr>
+
+                        </thead>
+                        <tbody>
+                        {% for c in prendas %}
+                            <tr class="text-center">
+                                <td>{{ c.nombre }}</td>
+                                <td>{{ c.id_producto.tipo }}</td>
+                                <td>{{ c.tipoTela }}</td>
+                                <td>{{ c.color }}</td>
+                                <td>{{ c.descripcion }}</td>
+                                <td>{{ c.precio }}</td>
+                                <td>{{ c.talla }}</td>
+                                <td>{{ c.cantidad }}
+                                    <br>
+                                    <button onclick="abrir_modal_editar('{% url 'editar-cantidad' c.id %}')"
+                                            class="btn btn-warning">Adicionar
+                                    </button>
+                                </td>
+                                <td><img style="width: 100px;height: 100px" src="{{ c.imagen.url }}" alt=""></td>
+                                <td>
+                                    <button onclick="abrir_modal_editar('{% url 'editar-prendas2' c.id %}')"
+                                            class="btn btn-primary">Editar
+                                    </button>
+
+                                    {% comment %}<a href="{% url 'eliminar-chamarra' c.id %}"
+                                   class="btn btn-danger">Eliminar
+                                </a>{% endcomment %}
+                                    <a href="#" onclick="eliminarProducto({{ c.id }})" class="btn btn-danger">Eliminar
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+                    <div class="modal fade" id="eliminar" role="dialog"></div>
+                    <div class="modal fade" id="editar" role="dialog"></div>
+                    <div class="modal fade" id="registrar" role="dialog"></div>
+
+                </div>
+            </div>
+        {% else %}
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                        <tr class="text-center">
+                            <th>Nombre</th>
+                            <th>Tipo del producto</th>
+                            <th>Color</th>
+                            <th>Descripcion</th>
+                            <th>Precio</th>
+                            <th>Talla</th>
+                            <th>Cantidad</th>
+                            <th>Imagen</th>
+                            <th>Opciones</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for c in prendas %}
+                            <tr class="text-center">
+                                <td>{{ c.nombre }}</td>
+                                <td>{{ c.id_producto.tipo }}</td>
+                                <td>{{ c.color }}</td>
+                                <td>{{ c.descripcion }}</td>
+                                <td>{{ c.precio }}</td>
+                                <td>{{ c.talla }}</td>
+                                <td>{{ c.cantidad }}
+                                    <br>
+                                    <button onclick="abrir_modal_editar('{% url 'editar-cantidad' c.id %}')"
+                                            class="btn btn-warning">Adicionar
+                                    </button>
+                                </td>
+                                <td><img style="width: 100px;height: 100px" src="{{ c.imagen.url }}" alt=""></td>
+                                <td>
+                                    <button onclick="abrir_modal_editar('{% url 'editarEpp' c.id %}')"
+                                            class="btn btn-primary">Editar
+                                    </button>
+
+                                    {% comment %}<a href="{% url 'eliminar-chamarra' c.id %}"
+                                   class="btn btn-danger">Eliminar
+                                </a>{% endcomment %}
+                                    <a href="#" onclick="eliminarProducto({{ c.id }})" class="btn btn-danger">Eliminar
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+                    <div class="modal fade" id="eliminar" role="dialog"></div>
+                    <div class="modal fade" id="editar" role="dialog"></div>
+                    <div class="modal fade" id="registrar" role="dialog"></div>
+
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
+{% block extraj %}
+    <script type="text/javascript">
+
+    </script>
+{% endblock %}

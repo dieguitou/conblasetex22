@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -39,8 +41,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'appConblasetex.ventas.apps.VentasConfig',
+    # 'appConblasetex.ventas.apps.VentasConfig',
+    'crispy_forms',
 ]
+CRISPY_TEMPLATE_PAXK = 'bootstrao4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -135,9 +139,8 @@ MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # email
-EMAIL_HOST = 'smtp.gmail.com'
-
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-
-EMAIL_HOST_USER = 'wiliprocoro@gmail.com'
-EMAIL_HOST_PASSWORD = 'jaltdrgvliobgiib'
+EMAIL_HOST_USER = "wiliprocoro@gmail.com"
+EMAIL_HOST_PASSWORD = "nvbolbcmkzkiqmuj"

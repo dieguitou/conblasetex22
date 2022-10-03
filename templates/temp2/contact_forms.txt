@@ -1,0 +1,12 @@
+  NOMBRE:
+  <br>{{ name }}
+  <br><br>
+  EMAIL:
+  <br>{{ email }}
+  <br><br>
+  TEMA:
+  <br>{{ subject }}
+  <br><br>
+
+  MESSAGE:
+  <br>{{ message }}
